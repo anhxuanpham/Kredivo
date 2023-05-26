@@ -54,13 +54,14 @@ def get_user():
 
     return jsonify( {
       "status":"200",
-      "message":"OK"
+      "message":"OK May"
     })
 
 @app.route('/check', methods=['GET'])
 def check():
     return jsonify( {
       "status":"OK",
+      "message":"Success",
     })
 
 if __name__ == '__main__':
