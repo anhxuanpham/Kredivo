@@ -3,6 +3,7 @@ import requests
 import threading
 import time
 import logging
+import json
 from pymongo import MongoClient
 
 logger = logging.getLogger()
@@ -69,21 +70,10 @@ def check():
 def get_order():
     orders = list(collection.find())
 
-    result = []
     for doc in orders:
-        result.append({
-        'id': (doc['_id']),
-        'amount': doc['amount'],
-        'discount_amount': doc['discount_amount'],
-        'disbursed_amount': doc['disbursed_amount'],
-        'trx_status': doc['trx_status'],
-        'order_id': doc['order_id'],
-        'transaction_time': doc['transaction_time'],
-        'message': doc['message'],
-        'trans_id': doc['trans_id'],
-        'sign_key': doc['sign_key'],
-        })
-    return jsonify(result)
+        doc['_id'] = str(doc['_id'])
+
+    return jsonify(orders)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0',debug = True)
