@@ -14,8 +14,8 @@ collection = db['Kredivo_Dev']
 app = Flask(__name__)
 
 def send_confirm(data):
-    time.sleep(5)
-    print("===== send confirm ====")
+    time.sleep(1)
+    print("Merchant send confirm to Kredivo")
     requests.post(
         url='https://api-sandbox-vn.kredivo.com/checkout/update',
         json=data
@@ -41,22 +41,11 @@ def get_user():
         "status": "settled"
     },))
     x.start()
-    db['Kredivo_Dev'].insert_one({
-    'amount': float(_data.get('amount')),
-    'discount_amount': float(_data.get('discount_amount')),
-    'disbursed_amount': float(_data.get('disbursed_amount')),
-    'trx_status': _data.get('trx_status'),
-    'order_id': _data.get('order_id'),
-    'transaction_time': _data.get('transaction_time'),
-    'message': _data.get('message'),
-    'trans_id': _data.get('transaction_id'),
-    'sign_key': _data.get('signature_key'),
     
-    })
 
     return jsonify( {
       "status":"200",
-      "message":"OK May"
+      "message":"OK"
     })
 
 @app.route('/check', methods=['GET'])
@@ -77,3 +66,7 @@ def get_order():
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0',debug = True)
+
+
+
+
